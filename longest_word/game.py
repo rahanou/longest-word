@@ -1,5 +1,6 @@
 import random
 import string
+import requests
 
 class Game:
     def __init__(self) -> list:
@@ -8,6 +9,7 @@ class Game:
 
 
     def is_valid(self, word: str) -> bool:
+
         if len(word)==0:
             return False
 
@@ -15,4 +17,5 @@ class Game:
             if letter not in self.grid:
                 return False
             else:
-                return True
+                r= requests.get(f'https://dictionary.lewagon.com/{word}').json()
+                return r.get('found')
